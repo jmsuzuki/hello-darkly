@@ -7,12 +7,15 @@ from threading import Lock, Event
 from hello_darkly.src.features.banner.banner import Banner
 from hello_darkly.src.features.ticker.ticker import Ticker
 
+from hello_darkly.src.features import FEATURES
+
 
 # Set sdk_key to your LaunchDarkly SDK key.
 sdk_key = os.getenv("LAUNCHDARKLY_SDK_KEY")
 
 
 if __name__ == "__main__":
+    sdk_key = "sdk-c1f69333-45ff-4abb-8079-683a3baf7f1e"
     if not sdk_key:
         print("*** Please set the LAUNCHDARKLY_SDK_KEY env first")
         exit()
@@ -30,16 +33,14 @@ if __name__ == "__main__":
     context = \
         Context.builder('example-user-key-2').kind('user').name('Drew').build()
 
-    ### Included Features!
-    banner = Banner(
-        ldclient=ldclient,
-        context=context
-    )
-
-    ticker = Ticker(
-        ldclient=ldclient,
-        context=context
-    )
+    ### initialize features
+    inited_features = {}
+    for feature_name, feature_class in FEATURES.items():
+        print(f"Initializing feature {feature_name}")
+        inited_features[feature_name] = feature_class(
+            ldclient=ldclient,
+            context=context
+        )
 
     try:
         Event().wait()
