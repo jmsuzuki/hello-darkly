@@ -1,7 +1,9 @@
 from threading import Lock
 
+from hello_darkly.src.features.i_feature import IFeature
 
-class Banner(object):
+
+class Banner(IFeature):
     # Set feature_flag_key to the feature flag key you want to evaluate.
     feature_flag_key = "sample-feature"
 

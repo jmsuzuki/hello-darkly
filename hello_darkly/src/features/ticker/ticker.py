@@ -1,6 +1,7 @@
 import time
 from threading import Lock
 
+from hello_darkly.src.features.i_feature import IFeature
 
 
 def show_evaluation_result(key: str, value: bool):
@@ -31,7 +32,7 @@ class FlagValueChangeListener:
         time.sleep(1)
 
 
-class Ticker(object):
+class Ticker(IFeature):
     # Set feature_flag_key to the feature flag key you want to evaluate.
     feature_flag_key = "ticker-feature"
 
