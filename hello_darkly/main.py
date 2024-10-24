@@ -5,6 +5,7 @@ from ldclient.config import Config
 from threading import Lock, Event
 
 from hello_darkly.src.features.banner.banner import Banner
+from hello_darkly.src.features.ticker.ticker import Ticker
 
 
 # Set sdk_key to your LaunchDarkly SDK key.
@@ -31,6 +32,11 @@ if __name__ == "__main__":
 
     ### Included Features!
     banner = Banner(
+        ldclient=ldclient,
+        context=context
+    )
+
+    ticker = Ticker(
         ldclient=ldclient,
         context=context
     )
